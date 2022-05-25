@@ -1,0 +1,32 @@
+﻿@page "/testtable"
+@using BlazorTest.Client.Components
+
+<div class="container">
+  <Tab IsBorderCard="true" IsOnlyRenderActiveTab="false">
+    <TabItem Key="0" Text="Tab One">
+      <ListTest ListData="modelListTest" />
+    </TabItem>
+  </Tab>
+  <div class="row">
+    <div class="col-12 d-flex flex-row-reverse py-3">
+      <Button Text="Confirm" class="ms-2" />
+      <Button Text="Clear" Color="Color.Secondary" />
+    </div>
+  </div>
+</div>
+
+@code {
+
+  private List<ModelTest> modelListTest = new();
+
+  protected override void OnInitialized()
+  {
+    for (var i = 0; i < 40; i++)
+    {
+      modelListTest.Add(new ModelTest() { TestID = i, TestName = i.ToString(), TestDescription = "LONG TEST DESCRIPTION FOR SEE THE ROW BREAKS"});
+    }
+
+    base.OnInitialized();
+  }
+
+}

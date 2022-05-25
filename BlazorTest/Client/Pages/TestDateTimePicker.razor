@@ -1,0 +1,24 @@
+﻿@page "/datetimepicker"
+
+@using BlazorTest.Shared
+@using System.Globalization
+
+<PageTitle>Test datetime picker</PageTitle>
+
+<DateTimePicker TValue="DateTime" Value="@DateTime.Today" />
+
+@code {
+  protected override void OnInitialized()
+  {
+    //Language.SetDefaultLanguage("it-IT"); //first option
+    //SetLanguage(); //second option
+    base.OnInitialized();
+  }
+
+  private void SetLanguage()
+  {
+    CultureInfo culture = new("it-IT");
+    CultureInfo.DefaultThreadCurrentCulture = culture;
+    CultureInfo.DefaultThreadCurrentUICulture = culture;
+  }
+}

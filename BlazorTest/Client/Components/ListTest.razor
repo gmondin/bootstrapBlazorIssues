@@ -1,0 +1,43 @@
+﻿@using BlazorTest.Shared
+@using BootstrapBlazor.Components
+
+<Table TItem="ModelTest"
+       Items="@ListData"
+       SelectedRows="@_SelectedRows"
+       IsStriped="true"
+       IsBordered="true"
+       ScrollingDialogContent="true"
+       ShowDefaultButtons="false"
+       ShowLoading="true"
+       ClickToSelect="@IsSelectTable"
+       OnClickRowCallback="@OnClickRow"
+       RenderModeResponsiveWidth="300"
+       Height="@_TableHeightSize"
+       IsFixedHeader="true"
+       SortAscText="Asc"
+       SortDescText="Desc"
+       UnsetText="">
+  <TableColumns>
+    <TableColumn @bind-Field="@context.TestID" Fixed Text="Test ID" Width="80" Sortable />
+    <TableColumn @bind-Field="@context.TestName" Text="Test Name" Width="100" Sortable />
+    <TableColumn @bind-Field="@context.TestDescription" Text="Test Description" Width="200" Sortable />
+  </TableColumns>
+</Table>
+
+@code {
+
+  [EditorRequired][Parameter] public List<ModelTest> ListData { get; set; } = new();
+
+  [Parameter] public bool IsSelectTable { get; set; } = true;
+
+  [Parameter] public EventCallback<ModelTest> CallBackAfterSelected { get; set; }
+
+  private List<ModelTest> _SelectedRows = new();
+  private int _TableHeightSize { get; set; } = 250;
+
+  
+  private async Task OnClickRow(ModelTest item)
+  {
+    if (IsSelectTable) await CallBackAfterSelected.InvokeAsync(item);
+  }
+}
